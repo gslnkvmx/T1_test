@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using schoolAPI.Data;
 using schoolAPI.Models;
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +13,13 @@ builder.Services.AddDbContext<SchoolContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 var app = builder.Build();
+
+// Автоматическое применение миграций
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<SchoolContext>();
+    db.Database.Migrate();
+}
 
 if (app.Environment.IsDevelopment())
 {
