@@ -1,0 +1,26 @@
+version: "3.9"
+services:
+  postgres:
+    image: postgres:16
+    environment:
+      POSTGRES_DB: schooldb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5434:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  schoolapi:
+    build: ./schoolAPI
+    ports:
+      - "5276:5276"
+    environment:
+      ASPNETCORE_URLS: http://+:5276
+      ASPNETCORE_ENVIRONMENT: Development
+      # строка подключения:
+      ConnectionStrings__DefaultConnection: "Host=postgres;Port=5432;Database=schooldb;Username=postgres;Password=postgres"
+    restart: always
+
+volumes:
+  pgdata:
