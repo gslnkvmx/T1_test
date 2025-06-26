@@ -13,8 +13,9 @@ cd T1_test
 
 ```sh
 docker-compose up --build
-docker-compose exec schoolapi dotnet ef database update
 ```
+
+Миграция применится автоматически
 
 3. После запуска:
    - API будет доступен по адресу: http://localhost:5276
