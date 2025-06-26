@@ -13,6 +13,7 @@ cd T1_test
 
 ```sh
 docker-compose up --build
+docker-compose exec schoolapi dotnet ef database update
 ```
 
 3. После запуска:
